@@ -1,7 +1,7 @@
-MONTHS_NUMS = {1: "January", 2: "February", 3: "March", 4: " April", 5: "Maj", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
-
-
 class DVD:
+    month = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
+
+
     def __init__(self, name, id, creation_year, creation_month, age_restriction):
         self.name = name
         self.id = id
@@ -10,26 +10,18 @@ class DVD:
         self.age_restriction = age_restriction
         self.is_rented = False
 
-    def from_date(self, id: int, name: str, date: str, age_restriction: int):
-        pass
-
     def __repr__(self):
-        return f"{self.id}: {self.name} ({self.creation_month} {self.creation_year}) has age restriction {self.age_restriction}. Status: {'rented' if self.is_rented else 'not rented'}"
+        status = "not rented"
+        if self.is_rented:
+            status = 'rented'
+        return f"{self.id}: {self.name} ({self.creation_month} {self.creation_year}) has age restriction {self.age_restriction}. Status: {status}"
 
     @classmethod
-    def from_date(cls, id, name, date, age_restriction):
-        day, month, year = date.split(".")
-        year = int(year)
-
-        month = MONTHS_NUMS[int(month)]
-
-        return cls(name, id, year, month, age_restriction)
-
-
-
-
-
-
+    def from_date(cls, id: int, name: str, date: str, age_restriction: int):
+        date = date.split(".")
+        creation_year = int(date[2])
+        creation_month = DVD.month[int(date[1])]
+        return cls(name, id, creation_year, creation_month, age_restriction)
 
 
 
